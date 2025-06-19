@@ -5,8 +5,6 @@ import pyperclip
 import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
-
-#Password Generator Project
 def generate_password():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -65,14 +63,14 @@ def find_password():
         with open("data.json") as data_file:
             data = json.load(data_file)
     except FileNotFoundError:
-        messagebox.showinfo(title="Error", message="No Data File Found.")
+        messagebox.showinfo(title="Error", message="No Data Found.")
     else:
         if website in data:
             email = data[website]["email"]
             password = data[website]["password"]
             messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
         else:
-            messagebox.showinfo(title="Error", message=f"No details for {website} exists.")
+            messagebox.showinfo(title="Error", message=f"No data found for the website: {website}")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -85,6 +83,7 @@ logo = PhotoImage(file="logo.png")
 canvas.create_image(120, 100, image=logo)
 canvas.grid(row=0, column=1)
 
+#Labels
 website_label = Label(text="Website:")
 website_label.grid(row=1, column=0)
 email_label = Label(text="Email/Username:")
@@ -92,8 +91,9 @@ email_label.grid(row=2, column=0)
 password_label = Label(text="Password:")
 password_label.grid(row=3, column=0)
 
-website_entry = Entry(width=52)
-website_entry.grid(row=1, column=1, columnspan=2)
+#Entries
+website_entry = Entry(width=33)
+website_entry.grid(row=1, column=1)
 website_entry.focus()
 email_entry = Entry(width=52)
 email_entry.grid(row=2, column=1, columnspan=2)
@@ -101,6 +101,9 @@ email_entry.insert(0, "aish@gmail.com")
 password_entry = Entry(width=33)
 password_entry.grid(row=3, column=1)
 
+#Buttons
+search_button = Button(text="Search",width=15, command=find_password)
+search_button.grid(row=1, column=2)
 generate_button = Button(text="Generate Password", width=15, command=generate_password)
 generate_button.grid(row=3, column=2)
 add_button = Button(text="Add", width=44, command=save)
